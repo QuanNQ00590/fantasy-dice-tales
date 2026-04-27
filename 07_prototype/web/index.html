@@ -1,0 +1,183 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Fantasy Dice Tales Prototype</title>
+    <link rel="stylesheet" href="styles.css" />
+  </head>
+  <body>
+    <main class="app-shell">
+      <header class="hud-bar" aria-label="Resources">
+        <div class="brand-block">
+          <p class="eyebrow">Ocean Adventure Hybrid</p>
+          <h1>Tidebound Fortune</h1>
+        </div>
+        <div class="resource-row">
+          <div class="resource-pill coin">
+            <span class="resource-icon" aria-hidden="true"></span>
+            <strong id="coinBalance">0</strong>
+          </div>
+          <div class="resource-pill dice">
+            <span class="resource-icon" aria-hidden="true"></span>
+            <strong id="diceBalance">8</strong>
+          </div>
+          <div class="resource-pill relic">
+            <span class="resource-icon" aria-hidden="true"></span>
+            <strong id="starBalance">0</strong>
+          </div>
+        </div>
+      </header>
+
+      <section class="story-strip" aria-label="Story and objective">
+        <div>
+          <span class="tiny-label">Current Route</span>
+          <h2 id="routeTitle">Whispering Shoals</h2>
+          <p id="objectiveText">Select an island, sail out, then clear its node path to bring resources home.</p>
+        </div>
+        <div class="progress-card">
+          <span id="mapText">Sea Chart</span>
+          <div class="progress-track">
+            <div id="progressFill" class="progress-fill"></div>
+          </div>
+          <strong id="progressText">Overworld</strong>
+        </div>
+      </section>
+
+      <section class="main-stage">
+        <section id="overworldScreen" class="screen overworld-screen" aria-label="Sea overworld">
+          <div class="hero-card">
+            <span class="tiny-label">World Story</span>
+            <h3>Chart the Coral Frontier</h3>
+            <p>Each island is a self-contained Mini Tales style run. Sail in, roll through the local nodes, trigger scenes, and carry rewards back into the larger ocean campaign.</p>
+          </div>
+
+          <div class="sea-map">
+            <div class="sea-glow sea-glow-a" aria-hidden="true"></div>
+            <div class="sea-glow sea-glow-b" aria-hidden="true"></div>
+            <button class="island-pin active" data-island="0" type="button">
+              <span class="pin-art"></span>
+              <span class="pin-copy">
+                <strong>Whispering Shoals</strong>
+                <small>Shipyard Ruins</small>
+              </span>
+            </button>
+            <button class="island-pin" data-island="1" type="button">
+              <span class="pin-art"></span>
+              <span class="pin-copy">
+                <strong>Coral Bazaar</strong>
+                <small>Trade Reef</small>
+              </span>
+            </button>
+            <button class="island-pin locked" data-island="2" type="button">
+              <span class="pin-art"></span>
+              <span class="pin-copy">
+                <strong>Stormglass Reach</strong>
+                <small>Locked</small>
+              </span>
+            </button>
+            <div id="shipToken" class="ship-token" aria-hidden="true"></div>
+          </div>
+
+          <div class="selection-card">
+            <div class="selection-art">
+              <div id="selectedIslandPreview" class="selected-island-preview"></div>
+            </div>
+            <div class="selection-copy">
+              <span class="tiny-label">Selected Island</span>
+              <h3 id="selectedIslandName">Whispering Shoals</h3>
+              <p id="selectedIslandSummary">Recover the broken harbor beacon and open the first safe route through the misty sea.</p>
+              <div class="selection-meta">
+                <div class="meta-pill">
+                  <span>Meta Reward</span>
+                  <strong id="selectedIslandReward">Harbor Build Parts</strong>
+                </div>
+                <div class="meta-pill">
+                  <span>Story Progress</span>
+                  <strong id="selectedIslandStars">0 / 3 Stars</strong>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <div class="meta-grid">
+            <div class="meta-box">
+              <span class="tiny-label">Collection</span>
+              <strong>Companions</strong>
+              <p>Future aquarium/creature meta slot.</p>
+            </div>
+            <div class="meta-box">
+              <span class="tiny-label">Meta Build</span>
+              <strong>Harbor Progress</strong>
+              <p id="harborStatus">0 / 3 island clears complete.</p>
+            </div>
+          </div>
+        </section>
+
+        <section id="expeditionScreen" class="screen expedition-screen hidden" aria-label="Island expedition">
+          <div class="expedition-head">
+            <button id="returnButton" class="small-action ghost" type="button">Home</button>
+            <div>
+              <span class="tiny-label">Island Run</span>
+              <h3 id="expeditionTitle">Whispering Shoals</h3>
+            </div>
+            <div class="head-status">
+              <span class="tiny-label">Event</span>
+              <strong id="runState">Ready to sail</strong>
+            </div>
+          </div>
+
+          <div class="board-frame">
+            <div id="boardBanner" class="board-banner">Fogged Island Route</div>
+            <div id="board" class="board" aria-label="Playable board"></div>
+          </div>
+
+          <section class="event-card" aria-label="Event result">
+            <span class="tiny-label">Current Event</span>
+            <h3 id="tileTitle">Docked at Harbor</h3>
+            <p id="tileDescription">Embark, roll, and let the island scenes resolve one stop at a time.</p>
+          </section>
+
+          <div class="roll-dock">
+            <div class="dice-card">
+              <span class="tiny-label">Dice</span>
+              <div id="diceFace" class="dice-face" aria-live="polite">
+                <span></span><span></span><span></span>
+                <span></span><span></span><span></span>
+                <span></span><span></span><span></span>
+              </div>
+            </div>
+            <button id="rollButton" class="roll-button" type="button">Roll</button>
+          </div>
+        </section>
+      </section>
+
+      <div class="primary-dock">
+        <button id="embarkButton" class="embark-button" type="button">Sail To Island</button>
+      </div>
+    </main>
+
+    <section id="sceneOverlay" class="scene-overlay hidden" aria-live="polite" aria-label="Special event scene">
+      <div class="scene-shell">
+        <div id="sceneBackdrop" class="scene-backdrop encounter"></div>
+        <div class="scene-fx scene-fx-a" aria-hidden="true"></div>
+        <div class="scene-fx scene-fx-b" aria-hidden="true"></div>
+        <div class="scene-fx scene-fx-c" aria-hidden="true"></div>
+        <div class="scene-card">
+          <div class="scene-copy">
+            <span id="sceneLabel" class="scene-label">Battle</span>
+            <h2 id="sceneTitle">Reef Ambush</h2>
+            <p id="sceneText">A special scene is triggered.</p>
+            <div id="sceneRewards" class="scene-rewards"></div>
+          </div>
+          <div class="scene-art-panel">
+            <div id="sceneArt" class="scene-art encounter" aria-hidden="true"></div>
+          </div>
+          <div id="sceneActions" class="scene-actions"></div>
+        </div>
+      </div>
+    </section>
+
+    <script src="game.js"></script>
+  </body>
+</html>
