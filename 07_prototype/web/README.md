@@ -16,6 +16,14 @@ Open `index.html` in a browser.
 
 No server or package install is required.
 
+## Validation
+
+Run `python test_prototype.py`.
+
+The smoke test can generate local validation screenshots for layout and scene checks.
+
+These generated `.png` files are intentionally ignored in git and should be treated as disposable QA artifacts.
+
 ## Included Gameplay
 
 - 36-node Greenvale board

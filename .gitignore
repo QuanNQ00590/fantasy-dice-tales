@@ -1,0 +1,26 @@
+# OS / editor
+.DS_Store
+Thumbs.db
+
+# Python
+__pycache__/
+*.py[cod]
+.pytest_cache/
+
+# Local env
+.env
+.venv/
+venv/
+
+# Prototype-generated validation artifacts
+07_prototype/web/board_optimized.png
+07_prototype/web/portrait_expedition.png
+07_prototype/web/portrait_expedition_clean.png
+07_prototype/web/portrait_expedition_v2.png
+07_prototype/web/portrait_home.png
+07_prototype/web/portrait_home_v2.png
+07_prototype/web/portrait_scene.png
+07_prototype/web/prototype_scene_test.png
+07_prototype/web/prototype_smoke_test.png
+07_prototype/web/scene_debug.png
+07_prototype/web/scene_optimized.png
